@@ -263,25 +263,21 @@ export const MainLayout = ({
                 {
                   name: "select",
                   helperText: "Select" + getHotkeyHelpText("select_tool"),
-                  alwaysShowing: true,
                 },
                 {
                   name: "pan",
                   helperText:
                     "Drag/Pan (right or middle click)" +
                     getHotkeyHelpText("pan_tool"),
-                  alwaysShowing: true,
                 },
                 {
                   name: "zoom",
                   helperText:
                     "Zoom In/Out (scroll)" + getHotkeyHelpText("zoom_tool"),
-                  alwaysShowing: true,
                 },
                 {
                   name: "show-tags",
-                  helperText: "Show / Hide Tags",
-                  alwaysShowing: true,
+                  helperText: "Show / Hide Tags"
                 },
                 {
                   name: "create-point",
