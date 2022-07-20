@@ -1,5 +1,5 @@
 {
-  "name": "react-image-annotate",
+  "name": "@holmanlam/react-image-annotate",
   "version": "1.9.0",
   "dependencies": {
     "@emotion/react": "^11.7.0",
