@@ -7,7 +7,7 @@ import type {
   Mode,
   ToolEnum,
 } from "../MainLayout/types"
-import React, { useEffect, useReducer } from "react"
+import React, { useEffect, useReducer, forwardRef, useImperativeHandle } from "react"
 import makeImmutable, { without } from "seamless-immutable"
 
 import type { KeypointsDefinition } from "../ImageCanvas/region-tools"
@@ -57,7 +57,7 @@ type Props = {
   hideSave?: boolean,
 }
 
-export const Annotator = ({
+export const Annotator = forwardRef(({
   images,
   allowedArea,
   selectedImage = images && images.length > 0 ? 0 : undefined,
@@ -99,7 +99,7 @@ export const Annotator = ({
   hideFullScreen,
   hideSave,
   allowComments,
-}: Props) => {
+}: Props, ref) => {
   if (typeof selectedImage === "string") {
     selectedImage = (images || []).findIndex((img) => img.src === selectedImage)
     if (selectedImage === -1) selectedImage = undefined
@@ -169,6 +169,12 @@ export const Annotator = ({
     })
   })
 
+  useImperativeHandle(ref, () => ({
+    getState() {
+        return without(state, "history")
+    },
+}));
+
   useEffect(() => {
     if (selectedImage === undefined) return
     dispatchToReducer({
@@ -201,6 +207,6 @@ export const Annotator = ({
       />
     </SettingsProvider>
   )
-}
+})
 
 export default Annotator
