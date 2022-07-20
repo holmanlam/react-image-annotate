@@ -229,35 +229,11 @@ export const MainLayout = ({
             }
           }}
         >
-          <HotkeyDiv
-            tabIndex={-1}
-            divRef={innerContainerRef}
-            onMouseDown={refocusOnMouseEvent}
-            onMouseOver={refocusOnMouseEvent}
-            allowChanges
-            handlers={hotkeyHandlers}
-            className={classnames(
-              classes.container,
-              state.fullScreen && "Fullscreen"
-            )}
-          >
             <Workspace
               allowFullscreen
               iconDictionary={iconDictionary}
               hideHeader={hideHeader}
               hideHeaderText={hideHeaderText}
-              headerLeftSide={[
-                state.annotationType === "video" ? (
-                  <KeyframeTimeline
-                    currentTime={state.currentVideoTime}
-                    duration={state.videoDuration}
-                    onChangeCurrentTime={action("CHANGE_VIDEO_TIME", "newTime")}
-                    keyframes={state.keyframes}
-                  />
-                ) : activeImage ? (
-                  <div className={classes.headerTitle}>{activeImage.name}</div>
-                ) : null,
-              ].filter(Boolean)}
               headerItems={[
                 !hidePrev && { name: "Prev" },
                 !hideNext && { name: "Next" },
@@ -350,13 +326,14 @@ export const MainLayout = ({
                 )}
               rightSidebarItems={[
                 debugModeOn && (
-                  <DebugBox state={debugModeOn} lastAction={state.lastAction} />
+                  <DebugBox key="DebugBox" state={debugModeOn} lastAction={state.lastAction} />
                 ),
                 state.taskDescription && (
-                  <TaskDescription description={state.taskDescription} />
+                  <TaskDescription key="TaskDescription" description={state.taskDescription} />
                 ),
                 state.regionClsList && (
                   <ClassSelectionMenu
+                    key="ClassSelectionMenu"
                     selectedCls={state.selectedCls}
                     regionClsList={state.regionClsList}
                     onSelectCls={action("SELECT_CLASSIFICATION", "cls")}
@@ -364,6 +341,7 @@ export const MainLayout = ({
                 ),
                 state.labelImages && (
                   <TagsSidebarBox
+                    key="TagsSidebarBox"
                     currentImage={activeImage}
                     imageClsList={state.imageClsList}
                     imageTagList={state.imageTagList}
@@ -371,32 +349,35 @@ export const MainLayout = ({
                     expandedByDefault
                   />
                 ),
-                // (state.images?.length || 0) > 1 && (
-                //   <ImageSelector
-                //     onSelect={action("SELECT_REGION", "region")}
-                //     images={state.images}
-                //   />
-                // ),
+                (state.images?.length || 0) > 1 && (
+                  <ImageSelector
+                    onSelect={action("SELECT_REGION", "region")}
+                    images={state.images}
+                  />
+                ),
                 <RegionSelector
+                  key="RegionSelector"
                   regions={activeImage ? activeImage.regions : emptyArr}
                   onSelectRegion={action("SELECT_REGION", "region")}
                   onDeleteRegion={action("DELETE_REGION", "region")}
                   onChangeRegion={action("CHANGE_REGION", "region")}
                 />,
-                // state.keyframes && (
-                //   <KeyframesSelector
-                //     onChangeVideoTime={action("CHANGE_VIDEO_TIME", "newTime")}
-                //     onDeleteKeyframe={action("DELETE_KEYFRAME", "time")}
-                //     onChangeCurrentTime={action("CHANGE_VIDEO_TIME", "newTime")}
-                //     currentTime={state.currentVideoTime}
-                //     duration={state.videoDuration}
-                //     keyframes={state.keyframes}
-                //   />
-                // ),
-                // <HistorySidebarBox
-                //   history={state.history}
-                //   onRestoreHistory={action("RESTORE_HISTORY")}
-                // />,
+                state.keyframes && (
+                  <KeyframesSelector
+                  key="KeyframesSelector"
+                    onChangeVideoTime={action("CHANGE_VIDEO_TIME", "newTime")}
+                    onDeleteKeyframe={action("DELETE_KEYFRAME", "time")}
+                    onChangeCurrentTime={action("CHANGE_VIDEO_TIME", "newTime")}
+                    currentTime={state.currentVideoTime}
+                    duration={state.videoDuration}
+                    keyframes={state.keyframes}
+                  />
+                ),
+                <HistorySidebarBox
+                key="HistorySidebarBox"
+                  history={state.history}
+                  onRestoreHistory={action("RESTORE_HISTORY")}
+                />,
               ].filter(Boolean)}
             >
               {canvas}
@@ -410,7 +391,6 @@ export const MainLayout = ({
                 })
               }
             />
-          </HotkeyDiv>
         </FullScreen>
       </FullScreenContainer>
     </ThemeProvider>
