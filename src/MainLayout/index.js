@@ -383,20 +383,20 @@ export const MainLayout = ({
                   onDeleteRegion={action("DELETE_REGION", "region")}
                   onChangeRegion={action("CHANGE_REGION", "region")}
                 />,
-                state.keyframes && (
-                  <KeyframesSelector
-                    onChangeVideoTime={action("CHANGE_VIDEO_TIME", "newTime")}
-                    onDeleteKeyframe={action("DELETE_KEYFRAME", "time")}
-                    onChangeCurrentTime={action("CHANGE_VIDEO_TIME", "newTime")}
-                    currentTime={state.currentVideoTime}
-                    duration={state.videoDuration}
-                    keyframes={state.keyframes}
-                  />
-                ),
-                <HistorySidebarBox
-                  history={state.history}
-                  onRestoreHistory={action("RESTORE_HISTORY")}
-                />,
+                // state.keyframes && (
+                //   <KeyframesSelector
+                //     onChangeVideoTime={action("CHANGE_VIDEO_TIME", "newTime")}
+                //     onDeleteKeyframe={action("DELETE_KEYFRAME", "time")}
+                //     onChangeCurrentTime={action("CHANGE_VIDEO_TIME", "newTime")}
+                //     currentTime={state.currentVideoTime}
+                //     duration={state.videoDuration}
+                //     keyframes={state.keyframes}
+                //   />
+                // ),
+                // <HistorySidebarBox
+                //   history={state.history}
+                //   onRestoreHistory={action("RESTORE_HISTORY")}
+                // />,
               ].filter(Boolean)}
             >
               {canvas}
