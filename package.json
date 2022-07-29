@@ -1,6 +1,6 @@
 {
   "name": "holman-react-image-annotate",
-  "version": "1.9.6",
+  "version": "1.9.7",
   "dependencies": {
     "@emotion/react": "11.9.0",
     "@emotion/styled": "11.8.1",
