@@ -1,23 +1,21 @@
 // @flow
 
-import React, { useRef, memo } from "react"
-import Paper from "@mui/material/Paper"
-import { makeStyles } from "@mui/styles"
-import { createTheme, ThemeProvider } from "@mui/material/styles"
-import styles from "./styles"
-import classnames from "classnames"
-import type { Region } from "../ImageCanvas/region-tools.js"
-import IconButton from "@mui/material/IconButton"
-import Button from "@mui/material/Button"
-import TrashIcon from "@mui/icons-material/Delete"
 import CheckIcon from "@mui/icons-material/Check"
+import TrashIcon from "@mui/icons-material/Delete"
+import Button from "@mui/material/Button"
+import IconButton from "@mui/material/IconButton"
+import Paper from "@mui/material/Paper"
 import TextField from "@mui/material/TextField"
+import { makeStyles } from "@mui/styles"
+import classnames from "classnames"
+import React, { memo, useRef } from "react"
 import Select from "react-select"
 import CreatableSelect from "react-select/creatable"
+import type { Region } from "../ImageCanvas/region-tools.js"
+import styles from "./styles"
 
 import { asMutable } from "seamless-immutable"
 
-const theme = createTheme()
 const useStyles = makeStyles((theme) => styles)
 
 type Props = {
@@ -57,7 +55,6 @@ export const RegionLabel = ({
   }
 
   return (
-    <ThemeProvider theme={theme}>
       <Paper
         onClick={() => (!editing ? onOpen(region) : null)}
         className={classnames(classes.regionInfo, {
@@ -189,7 +186,6 @@ export const RegionLabel = ({
           </div>
         )}
       </Paper>
-    </ThemeProvider>
   )
 }
 

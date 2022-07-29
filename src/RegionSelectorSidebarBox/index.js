@@ -1,25 +1,23 @@
 // @flow
 
-import React, { Fragment, useState, memo } from "react"
-import SidebarBoxContainer from "../SidebarBoxContainer"
-import { makeStyles } from "@mui/styles"
-import { createTheme, ThemeProvider } from "@mui/material/styles"
-import { styled } from "@mui/material/styles"
-import { grey } from "@mui/material/colors"
-import RegionIcon from "@mui/icons-material/PictureInPicture"
-import Grid from "@mui/material/Grid"
-import ReorderIcon from "@mui/icons-material/SwapVert"
-import PieChartIcon from "@mui/icons-material/PieChart"
 import TrashIcon from "@mui/icons-material/Delete"
 import LockIcon from "@mui/icons-material/Lock"
 import UnlockIcon from "@mui/icons-material/LockOpen"
+import RegionIcon from "@mui/icons-material/PictureInPicture"
+import PieChartIcon from "@mui/icons-material/PieChart"
+import ReorderIcon from "@mui/icons-material/SwapVert"
 import VisibleIcon from "@mui/icons-material/Visibility"
 import VisibleOffIcon from "@mui/icons-material/VisibilityOff"
-import styles from "./styles"
+import { grey } from "@mui/material/colors"
+import Grid from "@mui/material/Grid"
+import { styled } from "@mui/material/styles"
+import { makeStyles } from "@mui/styles"
 import classnames from "classnames"
 import isEqual from "lodash/isEqual"
+import React, { memo, useState } from "react"
+import SidebarBoxContainer from "../SidebarBoxContainer"
+import styles from "./styles"
 
-const theme = createTheme()
 const useStyles = makeStyles((theme) => styles)
 
 const HeaderSep = styled("div")(({ theme }) => ({
@@ -173,7 +171,6 @@ export const RegionSelectorSidebarBox = ({
 }) => {
   const classes = useStyles()
   return (
-    <ThemeProvider theme={theme}>
       <SidebarBoxContainer
         title="Regions"
         subTitle=""
@@ -196,7 +193,6 @@ export const RegionSelectorSidebarBox = ({
           ))}
         </div>
       </SidebarBoxContainer>
-    </ThemeProvider>
   )
 }
 

@@ -1,11 +1,9 @@
 // @flow
 
-import React from "react"
-import classnames from "classnames"
 import { makeStyles } from "@mui/styles"
-import { createTheme, ThemeProvider } from "@mui/material/styles"
+import classnames from "classnames"
+import React from "react"
 
-const theme = createTheme()
 const useStyles = makeStyles((theme) => ({
   "@keyframes borderDance": {
     from: { strokeDashoffset: 0 },
@@ -85,7 +83,6 @@ export const HighlightBox = ({
       : `M5,5 L${pbox.w + 5},5 L${pbox.w + 5},${pbox.h + 5} L5,${pbox.h + 5} Z`
 
   return (
-    <ThemeProvider theme={theme}>
       <svg
         key={r.id}
         className={classnames(classes.highlightBox, {
@@ -136,7 +133,6 @@ export const HighlightBox = ({
       >
         <path d={pathD} />
       </svg>
-    </ThemeProvider>
   )
 }
 

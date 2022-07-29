@@ -1,22 +1,19 @@
 // @flow
 
-import React, { setState, memo } from "react"
-import { makeStyles } from "@mui/styles"
-import { createTheme, ThemeProvider } from "@mui/material/styles"
-import SidebarBoxContainer from "../SidebarBoxContainer"
 import HistoryIcon from "@mui/icons-material/History"
+import UndoIcon from "@mui/icons-material/Undo"
+import { grey } from "@mui/material/colors"
+import IconButton from "@mui/material/IconButton"
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
-import ListItemText from "@mui/material/ListItemText"
-import IconButton from "@mui/material/IconButton"
 import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction"
-import UndoIcon from "@mui/icons-material/Undo"
-import moment from "moment"
-import { grey } from "@mui/material/colors"
+import ListItemText from "@mui/material/ListItemText"
+import { makeStyles } from "@mui/styles"
 import isEqual from "lodash/isEqual"
-import Box from "@mui/material/Box"
+import moment from "moment"
+import React, { memo } from "react"
+import SidebarBoxContainer from "../SidebarBoxContainer"
 
-const theme = createTheme()
 const useStyles = makeStyles((theme) => ({
   emptyText: {
     fontSize: 14,
@@ -38,7 +35,6 @@ export const HistorySidebarBox = ({
   const classes = useStyles()
 
   return (
-    <ThemeProvider theme={theme}>
       <SidebarBoxContainer
         title="History"
         icon={<HistoryIcon style={{ color: grey[700] }} />}
@@ -66,7 +62,6 @@ export const HistorySidebarBox = ({
           ))}
         </List>
       </SidebarBoxContainer>
-    </ThemeProvider>
   )
 }
 

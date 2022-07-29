@@ -1,18 +1,15 @@
 // @flow
 
-import React, { memo } from "react"
-import { makeStyles } from "@mui/styles"
-import { createTheme, ThemeProvider } from "@mui/material/styles"
-import SidebarBoxContainer from "../SidebarBoxContainer"
 import CollectionsIcon from "@mui/icons-material/Collections"
 import { grey } from "@mui/material/colors"
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
 import ListItemText from "@mui/material/ListItemText"
-import Avatar from "@mui/material/Avatar"
+import { makeStyles } from "@mui/styles"
 import isEqual from "lodash/isEqual"
+import React, { memo } from "react"
+import SidebarBoxContainer from "../SidebarBoxContainer"
 
-const theme = createTheme()
 const useStyles = makeStyles((theme) => ({
   img: { width: 40, height: 40, borderRadius: 8 },
 }))
@@ -20,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
 export const ImageSelectorSidebarBox = ({ images, onSelect }) => {
   const classes = useStyles()
   return (
-    <ThemeProvider theme={theme}>
       <SidebarBoxContainer
         title="Images"
         subTitle={`(${images.length})`}
@@ -40,7 +36,6 @@ export const ImageSelectorSidebarBox = ({ images, onSelect }) => {
           </List>
         </div>
       </SidebarBoxContainer>
-    </ThemeProvider>
   )
 }
 
