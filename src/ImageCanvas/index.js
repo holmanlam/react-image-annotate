@@ -1,6 +1,5 @@
 // @flow weak
-
-import { makeStyles } from "@mui/styles"
+import { styled } from '@mui/system';
 import type { Node } from "react"
 import React, {
   useEffect, useLayoutEffect, useMemo, useRef,
@@ -28,7 +27,33 @@ import useMouse from "./use-mouse"
 import useProjectRegionBox from "./use-project-box"
 import useWasdMode from "./use-wasd-mode"
 
-const useStyles = makeStyles((theme) => styles)
+const StyledCanvas = styled('canvas')({
+  width: "100%", height: "100%", position: "relative", zIndex: 1
+});
+
+const StyledZoomIndicator = styled('div')({
+  position: "absolute",
+  bottom: 16,
+  right: 0,
+  backgroundColor: "rgba(0,0,0,0.4)",
+  color: "#fff",
+  opacity: 0.5,
+  fontWeight: "bolder",
+  fontSize: 14,
+  padding: 4,
+});
+
+const StyledFixedRegionLabel = styled('div')({
+  position: "absolute",
+  zIndex: 10,
+  top: 10,
+  left: 10,
+  opacity: 0.5,
+  transition: "opacity 500ms",
+  "&:hover": {
+    opacity: 1,
+  },
+});
 
 type Props = {
   regions: Array<Region>,
@@ -133,8 +158,6 @@ export const ImageCanvas = ({
   keypointDefinitions,
   allowComments,
 }: Props) => {
-  const classes = useStyles()
-
   const canvasEl = useRef(null)
   const layoutParams = useRef({})
   const [dragging, changeDragging] = useRafState(false)
@@ -386,7 +409,7 @@ export const ImageCanvas = ({
           </PreventScrollToParents>
         )}
         {!showTags && highlightedRegion && (
-          <div key="topLeftTag" className={classes.fixedRegionLabel}>
+          <StyledFixedRegionLabel key="topLeftTag">
             <RegionLabel
               disableClose
               allowedClasses={regionClsList}
@@ -398,7 +421,7 @@ export const ImageCanvas = ({
               imageSrc={imageSrc}
               allowComments={allowComments}
             />
-          </div>
+          </StyledFixedRegionLabel>
         )}
 
         {zoomWithPrimary && zoomBox !== null && (
@@ -440,9 +463,8 @@ export const ImageCanvas = ({
                 regions={regions}
               />
             )}
-            <canvas
+            <StyledCanvas
               style={{ opacity: 0.25 }}
-              className={classes.canvas}
               ref={canvasEl}
             />
             <RegionShapes
@@ -466,9 +488,9 @@ export const ImageCanvas = ({
             />
           </>
         </PreventScrollToParents>
-        <div className={classes.zoomIndicator}>
+        <StyledZoomIndicator>
           {((1 / mat.a) * 100).toFixed(0)}%
-        </div>
+        </StyledZoomIndicator>
       </div>
   )
 }
