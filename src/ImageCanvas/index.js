@@ -22,7 +22,6 @@ import VideoOrImageCanvasBackground from "../VideoOrImageCanvasBackground"
 import type {
   Region
 } from "./region-tools.js"
-import styles from "./styles"
 import useMouse from "./use-mouse"
 import useProjectRegionBox from "./use-project-box"
 import useWasdMode from "./use-wasd-mode"

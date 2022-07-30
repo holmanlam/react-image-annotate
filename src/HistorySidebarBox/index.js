@@ -8,21 +8,19 @@ import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
 import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction"
 import ListItemText from "@mui/material/ListItemText"
-import { makeStyles } from "@mui/styles"
 import isEqual from "lodash/isEqual"
 import moment from "moment"
 import React, { memo } from "react"
 import SidebarBoxContainer from "../SidebarBoxContainer"
+import { styled } from '@mui/system';
 
-const useStyles = makeStyles((theme) => ({
-  emptyText: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: grey[500],
-    textAlign: "center",
-    padding: 20,
-  },
-}))
+const StyledEmptyText = styled('div')({
+  fontSize: 14,
+  fontWeight: "bold",
+  color: grey[500],
+  textAlign: "center",
+  padding: 20,
+});
 
 const listItemTextStyle = { paddingLeft: 16 }
 
@@ -32,7 +30,6 @@ export const HistorySidebarBox = ({
 }: {
   history: Array<{ name: string, time: Date }>,
 }) => {
-  const classes = useStyles()
 
   return (
       <SidebarBoxContainer
@@ -42,7 +39,7 @@ export const HistorySidebarBox = ({
       >
         <List>
           {history.length === 0 && (
-            <div className={classes.emptyText}>No History Yet</div>
+            <StyledEmptyText>No History Yet</StyledEmptyText>
           )}
           {history.map(({ name, time }, i) => (
             <ListItem button dense key={i}>

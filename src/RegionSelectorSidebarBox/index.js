@@ -1,24 +1,72 @@
 // @flow
+import TrashIcon from "@mui/icons-material/Delete";
+import LockIcon from "@mui/icons-material/Lock";
+import UnlockIcon from "@mui/icons-material/LockOpen";
+import RegionIcon from "@mui/icons-material/PictureInPicture";
+import PieChartIcon from "@mui/icons-material/PieChart";
+import ReorderIcon from "@mui/icons-material/SwapVert";
+import VisibleIcon from "@mui/icons-material/Visibility";
+import VisibleOffIcon from "@mui/icons-material/VisibilityOff";
+import { blue, grey } from "@mui/material/colors";
+import Grid from "@mui/material/Grid";
+import { styled } from '@mui/system';
+import classnames from "classnames";
+import isEqual from "lodash/isEqual";
+import React, { memo, useState } from "react";
+import SidebarBoxContainer from "../SidebarBoxContainer";
 
-import TrashIcon from "@mui/icons-material/Delete"
-import LockIcon from "@mui/icons-material/Lock"
-import UnlockIcon from "@mui/icons-material/LockOpen"
-import RegionIcon from "@mui/icons-material/PictureInPicture"
-import PieChartIcon from "@mui/icons-material/PieChart"
-import ReorderIcon from "@mui/icons-material/SwapVert"
-import VisibleIcon from "@mui/icons-material/Visibility"
-import VisibleOffIcon from "@mui/icons-material/VisibilityOff"
-import { grey } from "@mui/material/colors"
-import Grid from "@mui/material/Grid"
-import { styled } from "@mui/material/styles"
-import { makeStyles } from "@mui/styles"
-import classnames from "classnames"
-import isEqual from "lodash/isEqual"
-import React, { memo, useState } from "react"
-import SidebarBoxContainer from "../SidebarBoxContainer"
-import styles from "./styles"
+const StyledChip = styled('span')({
+  display: "flex",
+  flexDirection: "row",
+  padding: 2,
+  borderRadius: 2,
+  paddingLeft: 4,
+  paddingRight: 4,
+  alignItems: "center",
+  "& .color": {
+    borderRadius: 5,
+    width: 10,
+    height: 10,
+    marginRight: 4,
+  },
+  "& .text": {},
+});
 
-const useStyles = makeStyles((theme) => styles)
+const StyledRow = styled('div')({
+  padding: 4,
+  cursor: "pointer",
+  "&.header:hover": {
+    backgroundColor: "#fff",
+  },
+  "&.highlighted": {
+    backgroundColor: blue[100],
+  },
+  "&:hover": {
+    backgroundColor: blue[50],
+    color: grey[800],
+  },
+});
+
+const StyledContainer = styled('div')({
+  fontSize: 11,
+  fontWeight: "bold",
+  color: grey[700],
+  "& .icon": {
+    marginTop: 4,
+    width: 16,
+    height: 16,
+  },
+  "& .icon2": {
+    opacity: 0.5,
+    width: 16,
+    height: 16,
+    transition: "200ms opacity",
+    "&:hover": {
+      cursor: "pointer",
+      opacity: 1,
+    },
+  },
+});
 
 const HeaderSep = styled("div")(({ theme }) => ({
   borderTop: `1px solid ${grey[200]}`,
@@ -27,12 +75,11 @@ const HeaderSep = styled("div")(({ theme }) => ({
 }))
 
 const Chip = ({ color, text }) => {
-  const classes = useStyles()
   return (
-    <span className={classes.chip}>
+    <StyledChip>
       <div className="color" style={{ backgroundColor: color }} />
       <div className="text">{text}</div>
-    </span>
+    </StyledChip>
   )
 }
 
@@ -48,14 +95,13 @@ const RowLayout = ({
   visible,
   onClick,
 }) => {
-  const classes = useStyles()
   const [mouseOver, changeMouseOver] = useState(false)
   return (
-    <div
+    <StyledRow
       onClick={onClick}
       onMouseEnter={() => changeMouseOver(true)}
       onMouseLeave={() => changeMouseOver(false)}
-      className={classnames(classes.row, { header, highlighted })}
+      className={classnames({ header, highlighted })}
     >
       <Grid container alignItems="center">
         <Grid item xs={2}>
@@ -77,7 +123,7 @@ const RowLayout = ({
           {visible}
         </Grid>
       </Grid>
-    </div>
+    </StyledRow>
   )
 }
 
@@ -169,7 +215,6 @@ export const RegionSelectorSidebarBox = ({
   onChangeRegion,
   onSelectRegion,
 }) => {
-  const classes = useStyles()
   return (
       <SidebarBoxContainer
         title="Regions"
@@ -177,7 +222,7 @@ export const RegionSelectorSidebarBox = ({
         icon={<RegionIcon style={{ color: grey[700] }} />}
         expandedByDefault
       >
-        <div className={classes.container}>
+        <StyledContainer>
           <MemoRowHeader />
           <HeaderSep />
           {regions.map((r, i) => (
@@ -191,7 +236,7 @@ export const RegionSelectorSidebarBox = ({
               onChangeRegion={onChangeRegion}
             />
           ))}
-        </div>
+        </StyledContainer>
       </SidebarBoxContainer>
   )
 }

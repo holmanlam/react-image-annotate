@@ -1,42 +1,36 @@
 // @flow
 
-import type { Action, MainLayoutState } from "./types"
-import { FullScreen, useFullScreenHandle } from "react-full-screen"
+import { createTheme, styled, ThemeProvider } from "@mui/material/styles"
 import React, { useCallback, useRef } from "react"
-import { makeStyles } from "@mui/styles"
-import { createTheme, ThemeProvider } from "@mui/material/styles"
-import { styled } from "@mui/material/styles"
+import { FullScreen, useFullScreenHandle } from "react-full-screen"
+import type { MainLayoutState } from "./types"
 
+import type { Node } from "react"
+import { withHotKeys } from "react-hotkeys"
+import Workspace from "react-material-workspace-layout/Workspace"
+import useEventCallback from "use-event-callback"
+import useKey from "use-key-hook"
+import getActiveImage from "../Annotator/reducers/get-active-image"
 import ClassSelectionMenu from "../ClassSelectionMenu"
 import DebugBox from "../DebugSidebarBox"
 import HistorySidebarBox from "../HistorySidebarBox"
 import ImageCanvas from "../ImageCanvas"
 import ImageSelector from "../ImageSelectorSidebarBox"
-import KeyframeTimeline from "../KeyframeTimeline"
 import KeyframesSelector from "../KeyframesSelectorSidebarBox"
-import type { Node } from "react"
 import RegionSelector from "../RegionSelectorSidebarBox"
 import SettingsDialog from "../SettingsDialog"
+import { useSettings } from "../SettingsProvider"
+import { useDispatchHotkeyHandlers } from "../ShortcutsManager"
 import TagsSidebarBox from "../TagsSidebarBox"
 import TaskDescription from "../TaskDescriptionSidebarBox"
-import Workspace from "react-material-workspace-layout/Workspace"
-import classnames from "classnames"
-import getActiveImage from "../Annotator/reducers/get-active-image"
 import getHotkeyHelpText from "../utils/get-hotkey-help-text"
 import iconDictionary from "./icon-dictionary"
-import styles from "./styles"
-import { useDispatchHotkeyHandlers } from "../ShortcutsManager"
-import useEventCallback from "use-event-callback"
 import useImpliedVideoRegions from "./use-implied-video-regions"
-import useKey from "use-key-hook"
-import { useSettings } from "../SettingsProvider"
-import { withHotKeys } from "react-hotkeys"
 
 // import Fullscreen from "../Fullscreen"
 
 const emptyArr = []
 const theme = createTheme()
-const useStyles = makeStyles((theme) => styles)
 
 const HotkeyDiv = withHotKeys(({ hotKeys, children, divRef, ...props }) => (
   <div {...{ ...hotKeys, ...props }} ref={divRef}>
@@ -80,7 +74,6 @@ export const MainLayout = ({
   hideFullScreen = false,
   hideSave = false,
 }: Props) => {
-  const classes = useStyles()
   const settings = useSettings()
   const fullScreenHandle = useFullScreenHandle()
 

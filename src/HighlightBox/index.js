@@ -1,40 +1,43 @@
 // @flow
 
-import { makeStyles } from "@mui/styles"
-import classnames from "classnames"
-import React from "react"
+import { keyframes, styled } from '@mui/system';
+import classnames from "classnames";
+import React from "react";
 
-const useStyles = makeStyles((theme) => ({
-  "@keyframes borderDance": {
-    from: { strokeDashoffset: 0 },
-    to: { strokeDashoffset: 100 },
+const borderDance = keyframes`
+  from {
+    strokeDashoffset: 0;
+  }
+  to {
+    strokeDashoffset: 100;
+  }
+`;
+
+const StyledHighlightBox = styled('svg')({
+  zIndex: 2,
+  transition: "opacity 500ms",
+  "&.highlighted": {
+    zIndex: 3,
   },
-  highlightBox: {
-    zIndex: 2,
-    transition: "opacity 500ms",
-    "&.highlighted": {
-      zIndex: 3,
-    },
-    "&:not(.highlighted)": {
-      opacity: 0,
-    },
-    "&:not(.highlighted):hover": {
-      opacity: 0.6,
-    },
-    "& path": {
-      vectorEffect: "non-scaling-stroke",
-      strokeWidth: 2,
-      stroke: "#FFF",
-      fill: "none",
-      strokeDasharray: 5,
-      animationName: "$borderDance",
-      animationDuration: "4s",
-      animationTimingFunction: "linear",
-      animationIterationCount: "infinite",
-      animationPlayState: "running",
-    },
+  "&:not(.highlighted)": {
+    opacity: 0,
   },
-}))
+  "&:not(.highlighted):hover": {
+    opacity: 0.6,
+  },
+  "& path": {
+    vectorEffect: "non-scaling-stroke",
+    strokeWidth: 2,
+    stroke: "#FFF",
+    fill: "none",
+    strokeDasharray: 5,
+    animationName: `${borderDance}`,
+    animationDuration: "4s",
+    animationTimingFunction: "linear",
+    animationIterationCount: "infinite",
+    animationPlayState: "running",
+  },
+});
 
 export const HighlightBox = ({
   mouseEvents,
@@ -55,7 +58,6 @@ export const HighlightBox = ({
   region: any,
   pbox: { x: number, y: number, w: number, h: number },
 }) => {
-  const classes = useStyles()
   if (!pbox.w || pbox.w === Infinity) return null
   if (!pbox.h || pbox.h === Infinity) return null
   if (r.unfinished) return null
@@ -83,9 +85,9 @@ export const HighlightBox = ({
       : `M5,5 L${pbox.w + 5},5 L${pbox.w + 5},${pbox.h + 5} L5,${pbox.h + 5} Z`
 
   return (
-      <svg
+      <StyledHighlightBox
         key={r.id}
-        className={classnames(classes.highlightBox, {
+        className={classnames({
           highlighted: r.highlighted,
         })}
         {...mouseEvents}
@@ -132,7 +134,7 @@ export const HighlightBox = ({
         }}
       >
         <path d={pathD} />
-      </svg>
+      </StyledHighlightBox>
   )
 }
 

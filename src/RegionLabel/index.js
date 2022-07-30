@@ -1,22 +1,67 @@
 // @flow
-
 import CheckIcon from "@mui/icons-material/Check"
 import TrashIcon from "@mui/icons-material/Delete"
 import Button from "@mui/material/Button"
+import { grey } from "@mui/material/colors"
 import IconButton from "@mui/material/IconButton"
 import Paper from "@mui/material/Paper"
 import TextField from "@mui/material/TextField"
-import { makeStyles } from "@mui/styles"
+import { styled } from '@mui/system'
 import classnames from "classnames"
 import React, { memo, useRef } from "react"
 import Select from "react-select"
 import CreatableSelect from "react-select/creatable"
 import type { Region } from "../ImageCanvas/region-tools.js"
-import styles from "./styles"
 
 import { asMutable } from "seamless-immutable"
 
-const useStyles = makeStyles((theme) => styles)
+const StyledRegionInfo = styled(Paper)({
+  fontSize: 12,
+    cursor: "default",
+    transition: "opacity 200ms",
+    opacity: 0.5,
+    "&:hover": {
+      opacity: 0.9,
+      cursor: "pointer",
+    },
+    "&.highlighted": {
+      opacity: 0.9,
+      "&:hover": {
+        opacity: 1,
+      },
+    },
+    // pointerEvents: "none",
+    fontWeight: 600,
+    color: grey[900],
+    padding: 8,
+    "& .name": {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      "& .circle": {
+        marginRight: 4,
+        boxShadow: "0px 0px 2px rgba(0,0,0,0.4)",
+        width: 10,
+        height: 10,
+        borderRadius: 5,
+      },
+    },
+    "& .tags": {
+      "& .tag": {
+        color: grey[700],
+        display: "inline-block",
+        margin: 1,
+        fontSize: 10,
+        textDecoration: "underline",
+      },
+    },
+})
+
+const StyledCommentBox = styled(TextField)({
+  fontWeight: 400,
+  fontSize: 13,
+})
+
 
 type Props = {
   region: Region,
@@ -45,7 +90,6 @@ export const RegionLabel = ({
   onRegionClassAdded,
   allowComments,
 }: Props) => {
-  const classes = useStyles()
   const commentInputRef = useRef(null)
   const onCommentInputClick = (_) => {
     // The TextField wraps the <input> tag with two divs
@@ -55,9 +99,9 @@ export const RegionLabel = ({
   }
 
   return (
-      <Paper
+      <StyledRegionInfo
         onClick={() => (!editing ? onOpen(region) : null)}
-        className={classnames(classes.regionInfo, {
+        className={classnames({
           highlighted: region.highlighted,
         })}
       >
@@ -155,10 +199,7 @@ export const RegionLabel = ({
               </div>
             )}
             {allowComments && (
-              <TextField
-                InputProps={{
-                  className: classes.commentBox,
-                }}
+              <StyledCommentBox
                 fullWidth
                 multiline
                 rows={3}
@@ -185,7 +226,7 @@ export const RegionLabel = ({
             )}
           </div>
         )}
-      </Paper>
+      </StyledRegionInfo>
   )
 }
 

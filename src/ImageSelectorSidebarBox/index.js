@@ -5,17 +5,16 @@ import { grey } from "@mui/material/colors"
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
 import ListItemText from "@mui/material/ListItemText"
-import { makeStyles } from "@mui/styles"
 import isEqual from "lodash/isEqual"
 import React, { memo } from "react"
 import SidebarBoxContainer from "../SidebarBoxContainer"
+import { styled } from '@mui/system';
 
-const useStyles = makeStyles((theme) => ({
-  img: { width: 40, height: 40, borderRadius: 8 },
-}))
+const StyledImg = styled('img')({
+  width: 40, height: 40, borderRadius: 8
+});
 
 export const ImageSelectorSidebarBox = ({ images, onSelect }) => {
-  const classes = useStyles()
   return (
       <SidebarBoxContainer
         title="Images"
@@ -26,7 +25,7 @@ export const ImageSelectorSidebarBox = ({ images, onSelect }) => {
           <List>
             {images.map((img, i) => (
               <ListItem button onClick={() => onSelect(img)} dense key={i}>
-                <img className={classes.img} src={img.src} />
+                <StyledImg src={img.src} />
                 <ListItemText
                   primary={img.name}
                   secondary={`${(img.regions || []).length} Labels`}
